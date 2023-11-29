@@ -2,11 +2,19 @@ const express = require("express");
 const app = express();
 const port = process.env.PORT || 3001;
 
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: false }))
+
 app.get("/", (req, res) => {
   console.log(`Receive GET request`);
   return res.type('html').send(html);
 });
 
+app.post("/", (req, res) => {
+  console.log(`Receive POST request`);
+  let data = req.body;
+  res.send('Data Received: ' + JSON.stringify(data));
+});
 const server = app.listen(port, () => console.log(`Example app listening on port ${port}!`));
 
 server.keepAliveTimeout = 120 * 1000;
